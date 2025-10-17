@@ -1,0 +1,67 @@
+# ...existing code...
+def caesar_cipher(text: str, shift: int, mode: str = "encrypt") -> str:
+    """
+    Caesar cipher that supports encryption and decryption.
+    shift is normalized to 0-25. mode must be "encrypt" or "decrypt".
+    """
+    if mode not in ("encrypt", "decrypt"):
+        raise ValueError('mode must be "encrypt" or "decrypt"')
+
+    shift = int(shift) % 26
+    if mode == "decrypt":
+        shift = -shift
+
+    result_chars = []
+    for char in text:
+        if char.isupper():
+            base = ord("A")
+            result_chars.append(chr((ord(char) - base + shift) % 26 + base))
+        elif char.islower():
+            base = ord("a")
+            result_chars.append(chr((ord(char) - base + shift) % 26 + base))
+        else:
+            result_chars.append(char)
+
+    return "".join(result_chars)
+
+
+# ...existing code...
+if __name__ == "__main__":
+    try:
+        while True:
+            print("\n=== Caesar Cipher Tool ===")
+            print("1. Encrypt Message")
+            print("2. Decrypt Message")
+            print("3. Exit")
+
+            choice = input("Enter your choice (1/2/3): ").strip()
+
+            if choice == "1":
+                message = input("Enter the message to Encrypt: ")
+                try:
+                    shift = int(input("Enter shift value (integer): ").strip())
+                except ValueError:
+                    print("❌ Shift must be an integer. Try again.")
+                    continue
+                encrypted = caesar_cipher(message, shift, "encrypt")
+                print("🔒 Encrypted Message:", encrypted)
+
+            elif choice == "2":
+                message = input("Enter the message to Decrypt: ")
+                try:
+                    shift = int(input("Enter shift value (integer): ").strip())
+                except ValueError:
+                    print("❌ Shift must be an integer. Try again.")
+                    continue
+                decrypted = caesar_cipher(message, shift, "decrypt")
+                print("🔓 Decrypted Message:", decrypted)
+
+            elif choice == "3":
+                print("Exiting... Goodbye!")
+                break
+
+            else:
+                print("❌ Invalid choice! Please enter 1, 2, or 3.")
+    except KeyboardInterrupt:
+        print("\nExiting... Goodbye!")
+# ...existing code...
