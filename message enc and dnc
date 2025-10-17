@@ -1,4 +1,3 @@
-# ...existing code...
 def caesar_cipher(text: str, shift: int, mode: str = "encrypt") -> str:
     """
     Caesar cipher that supports encryption and decryption.
